@@ -2,11 +2,12 @@
 #include <iostream>
 #include <fstream>
 #include <unordered_map>
+#include <chrono>
 
-#define FILENAME "trebuchet_input.txt"
+#define FILENAME "../inputs/trebuchet_input.txt"
 
 /**
- * @brief solves part 2
+ * @brief solves part 1
  *
  * @param filename name of input file
  */
@@ -107,8 +108,25 @@ int solution_part2(std::string filename)
 
 int main()
 {
-    std::cout << "Part 1: " << solution_part1(FILENAME) << "\n";
-    std::cout << "Part 2: " << solution_part2(FILENAME) << "\n";
+    int res;
+    std::chrono::duration<double> duration;
 
+    // BEGIN: Part 1
+    auto start = std::chrono::high_resolution_clock::now();
+    res = solution_part1(FILENAME);
+    auto end = std::chrono::high_resolution_clock::now();
+    duration = end - start; 
+    std::cout << "Elapsed time: " << duration.count() 
+        << "seconds; \tres_1 = " << res << std::endl;
+    // END: Part 1
+    
+    // BEGIN: Part 2
+    start = std::chrono::high_resolution_clock::now();
+    res = solution_part2(FILENAME);
+    end = std::chrono::high_resolution_clock::now();
+    duration = end - start; 
+    std::cout << "Elapsed time: " << duration.count() 
+        << "seconds; \tres_2 = " << res << std::endl;
+    // END: Part 2
     return 0;
 }
