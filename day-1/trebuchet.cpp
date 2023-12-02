@@ -1,26 +1,33 @@
 #include <string>
 #include <iostream>
+#include <fstream>
 
-#define FILENAME "input.txt"
+#define FILENAME "trebuchet_input.txt"
 
 int solution(std::string filename)
 {
     int res = 0;
-    std::ifstream file(filename);
+    std::fstream file(filename);
     std::string line;
+
     while (getline(file, line))
     {
-        int dec_val = 10;
-        for (int i = 0; i < line.size() && dec_val >= 0; i++)
+        int first = -1;
+        int last = 0;
+
+        for (int i = 0; i < line.size(); i++)
         {
-            // if the char is a digit
-            if (line.at(i) >= 0x30 && line.at(i) <= 39)
-            {
-                res += ((int)line.at(i) - 0x30)*dec_val;
-                dec_val /= 10;
+            int curr = line.at(i) - '0';
+            if (curr >= 0 && curr <= 9) {
+                last = curr;
+                if (first < 0)
+                    first = curr;
             }
         }
+
+        res += first*10 + last;
     }
+    return res;
 }
 
 int main()
